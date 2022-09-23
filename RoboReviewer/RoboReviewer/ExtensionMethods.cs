@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using System.Linq;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace RoboReviewer
@@ -7,22 +8,21 @@ namespace RoboReviewer
     {
         internal static bool IsTooDeep(this SyntaxNode node)
         {
-            bool isInsideFunction = false;
+            if (!node.Ancestors().Any(a => a is MethodDeclarationSyntax))
+            {
+                return false;
+            }
+
             int depth = 0;
 
             while (node != null &&
                    !(node is MethodDeclarationSyntax))
             {
-                if (node.Parent is MethodDeclarationSyntax)
-                {
-                    isInsideFunction = true;
-                }
-
                 node = node.Parent;
                 depth++;
             }
 
-            return isInsideFunction && depth > 3;
+            return depth > 3;
         }
     }
 }
