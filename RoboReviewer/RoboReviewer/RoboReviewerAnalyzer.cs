@@ -48,7 +48,11 @@ namespace RoboReviewer
                 var statements = 
                     root.DescendantNodes().OfType<StatementSyntax>();
 
-                foreach (var statement in statements.Where(s => (s is BlockSyntax)))
+                foreach (var statement in statements
+                             .Where(s => !(s is BlockSyntax) &&
+                                         s.DescendantNodes()
+                                             .Any(d => d is BlockSyntax ||
+                                                       d is StatementSyntax)))
                 {
                     if (statement.IsTooDeep())
                     {

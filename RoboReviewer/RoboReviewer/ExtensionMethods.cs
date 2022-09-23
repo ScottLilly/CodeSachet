@@ -1,5 +1,4 @@
 ﻿using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace RoboReviewer
@@ -11,7 +10,8 @@ namespace RoboReviewer
             bool isInsideFunction = false;
             int depth = 0;
 
-            while (!(node is MethodDeclarationSyntax))
+            while (node != null &&
+                   !(node is MethodDeclarationSyntax))
             {
                 if (node.Parent is MethodDeclarationSyntax)
                 {
@@ -22,21 +22,7 @@ namespace RoboReviewer
                 depth++;
             }
 
-            return isInsideFunction && depth > 2;
-        }
-
-        private static bool IsDeclaration(this SyntaxNode node)
-        {
-            SyntaxKind syntaxKind = node.Kind();
-
-            return syntaxKind == SyntaxKind.NamespaceDeclaration ||
-                   syntaxKind == SyntaxKind.ClassDeclaration ||
-                   syntaxKind == SyntaxKind.MethodDeclaration;
-        }
-
-        private static bool IsNotDeclaration(this SyntaxNode node)
-        {
-            return !node.IsDeclaration();
+            return isInsideFunction && depth > 3;
         }
     }
 }
