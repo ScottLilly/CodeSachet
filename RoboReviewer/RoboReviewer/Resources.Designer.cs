@@ -61,7 +61,7 @@ namespace RoboReviewer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Excessive code block depth.
+        ///   Looks up a localized string similar to Excessive levels of indentation.
         /// </summary>
         internal static string AnalyzerDescription {
             get {
@@ -70,7 +70,7 @@ namespace RoboReviewer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Code blocks go more than 3 levels deep..
+        ///   Looks up a localized string similar to More than two levels of indentation within a function.
         /// </summary>
         internal static string AnalyzerMessageFormat {
             get {
@@ -79,7 +79,7 @@ namespace RoboReviewer {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Excessive code block depth.
+        ///   Looks up a localized string similar to Excessive levels of indentation.
         /// </summary>
         internal static string AnalyzerTitle {
             get {

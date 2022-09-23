@@ -9,7 +9,7 @@ namespace RoboReviewer
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
     public class RoboReviewerAnalyzer : DiagnosticAnalyzer
     {
-        private const string CATEGORY = "Quality";
+        private const string CATEGORY = "CognitiveLoad";
 
         private static readonly LocalizableString s_title = 
             new LocalizableResourceString(
@@ -30,7 +30,7 @@ namespace RoboReviewer
                 isEnabledByDefault: true, 
                 description: s_description);
 
-        public const string DiagnosticId = "RoboReviewer";
+        public const string DiagnosticId = "RRCL001";
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => 
             ImmutableArray.Create(s_rule);

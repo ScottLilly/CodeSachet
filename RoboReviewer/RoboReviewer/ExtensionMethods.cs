@@ -8,21 +8,18 @@ namespace RoboReviewer
     {
         internal static bool IsTooDeep(this SyntaxNode node)
         {
-            if (!node.Ancestors().Any(a => a is MethodDeclarationSyntax))
+            var methodNode = 
+                node.Ancestors().FirstOrDefault(a => a is MethodDeclarationSyntax);
+
+            if (methodNode == null)
             {
                 return false;
             }
 
-            int depth = 0;
-
-            while (node != null &&
-                   !(node is MethodDeclarationSyntax))
-            {
-                node = node.Parent;
-                depth++;
-            }
-
-            return depth > 3;
+            return node.Parent != methodNode && 
+                   node.Parent.Parent != methodNode && 
+                   node.Parent.Parent.Parent != methodNode &&
+                   node.Parent.Parent.Parent.Parent != methodNode;
         }
     }
 }
