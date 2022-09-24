@@ -19,41 +19,41 @@ namespace CodeSachet.Test
         }
 
         //Diagnostic and CodeFix both triggered and checked for
-        [TestMethod]
-        public async Task TestMethod2()
-        {
-            var test = @"
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Diagnostics;
+        //    [TestMethod]
+        //    public async Task TestMethod2()
+        //    {
+        //        var test = @"
+        //using System;
+        //using System.Collections.Generic;
+        //using System.Linq;
+        //using System.Text;
+        //using System.Threading.Tasks;
+        //using System.Diagnostics;
 
-    namespace ConsoleApplication1
-    {
-        class {|#0:TypeName|}
-        {   
-        }
-    }";
+        //namespace ConsoleApplication1
+        //{
+        //    class {|#0:TypeName|}
+        //    {   
+        //    }
+        //}";
 
-            var fixtest = @"
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Diagnostics;
+        //        var fixtest = @"
+        //using System;
+        //using System.Collections.Generic;
+        //using System.Linq;
+        //using System.Text;
+        //using System.Threading.Tasks;
+        //using System.Diagnostics;
 
-    namespace ConsoleApplication1
-    {
-        class TYPENAME
-        {   
-        }
-    }";
+        //namespace ConsoleApplication1
+        //{
+        //    class TYPENAME
+        //    {   
+        //    }
+        //}";
 
-            var expected = VerifyCS.Diagnostic("CodeSachet").WithLocation(0).WithArguments("TypeName");
-            await VerifyCS.VerifyCodeFixAsync(test, expected, fixtest);
-        }
+        //        var expected = VerifyCS.Diagnostic("CodeSachet").WithLocation(0).WithArguments("TypeName");
+        //        await VerifyCS.VerifyCodeFixAsync(test, expected, fixtest);
+        //    }
     }
 }
