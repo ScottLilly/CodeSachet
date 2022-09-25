@@ -40,30 +40,32 @@ namespace CodeSachet
             context.ConfigureGeneratedCodeAnalysis(GeneratedCodeAnalysisFlags.None);
             context.EnableConcurrentExecution();
 
-            context.RegisterSyntaxTreeAction(syntaxTreeContext =>
+            context.RegisterSyntaxTreeAction(DetectExcessiveIndentation);
+        }
+
+        private static void DetectExcessiveIndentation(SyntaxTreeAnalysisContext syntaxTreeContext)
+        {
+            var root =
+                syntaxTreeContext.Tree.GetRoot(syntaxTreeContext.CancellationToken);
+
+            var statements =
+                root.DescendantNodes().OfType<StatementSyntax>();
+
+            foreach (var statement in statements
+                         .Where(s => !(s is BlockSyntax) &&
+                                     s.DescendantNodes()
+                                         .Any(d => d is BlockSyntax ||
+                                                   d is StatementSyntax)))
             {
-                var root = 
-                    syntaxTreeContext.Tree.GetRoot(syntaxTreeContext.CancellationToken);
-
-                var statements = 
-                    root.DescendantNodes().OfType<StatementSyntax>();
-
-                foreach (var statement in statements
-                             .Where(s => !(s is BlockSyntax) &&
-                                         s.DescendantNodes()
-                                             .Any(d => d is BlockSyntax ||
-                                                       d is StatementSyntax)))
+                if (statement.IsTooDeep())
                 {
-                    if (statement.IsTooDeep())
-                    {
-                        syntaxTreeContext
-                            .ReportDiagnostic(
-                                Diagnostic.Create(
-                                    s_rule,
-                                    statement.GetFirstToken().GetLocation()));
-                    }
+                    syntaxTreeContext
+                        .ReportDiagnostic(
+                            Diagnostic.Create(
+                                s_rule,
+                                statement.GetFirstToken().GetLocation()));
                 }
-            });
+            }
         }
     }
 }
