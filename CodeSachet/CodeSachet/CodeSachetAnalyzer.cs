@@ -30,7 +30,7 @@ namespace CodeSachet
                 isEnabledByDefault: true, 
                 description: s_description);
 
-        public const string DiagnosticId = "CSCL001";
+        public const string DiagnosticId = "SLCS1001";
 
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics => 
             ImmutableArray.Create(s_rule);
