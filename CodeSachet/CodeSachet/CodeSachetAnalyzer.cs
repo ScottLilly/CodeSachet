@@ -51,12 +51,34 @@ namespace CodeSachet
             var statements =
                 root.DescendantNodes().OfType<StatementSyntax>();
 
-            foreach (var statement in statements
-                         .Where(s => !(s is BlockSyntax) &&
-                                     s.DescendantNodes()
-                                         .Any(d => d is BlockSyntax ||
-                                                   d is StatementSyntax)))
+            foreach (var statement in statements)
             {
+                if (statement is BlockSyntax)
+                {
+                    // We only want to check the "if", "foreach", etc line,
+                    // not the code block under it
+                    continue;
+                }
+
+                // Check if there is a child block of code or statement
+                bool hasSubsequentBlock = false;
+
+                foreach (var subsequentBlock in statement.DescendantNodes())
+                {
+                    if (subsequentBlock is BlockSyntax ||
+                        subsequentBlock is StatementSyntax)
+                    {
+                        hasSubsequentBlock = true;
+                        break;
+                    }
+                }
+
+                // There is no "next level", so check the next line
+                if (!hasSubsequentBlock)
+                {
+                    continue;
+                }
+
                 if (statement.IsTooDeep())
                 {
                     syntaxTreeContext
