@@ -6,6 +6,7 @@
 
     <!-- Avoid ID conflicts with the package project. -->
     <PackageId>*$(MSBuildProjectFile)*</PackageId>
+    <Version>0.1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

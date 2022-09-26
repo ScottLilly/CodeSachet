@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <PackageId>CodeSachet</PackageId>
-    <PackageVersion>1.0.0.0</PackageVersion>
+    <PackageVersion>0.1.0.0</PackageVersion>
     <Authors>scott</Authors>
     <PackageLicenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</PackageLicenseUrl>
     <PackageProjectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</PackageProjectUrl>
@@ -24,6 +24,8 @@
     <NoPackageAnalysis>true</NoPackageAnalysis>
 
     <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_AddAnalyzersToOutput</TargetsForTfmSpecificContentInPackage>
+
+    <Version>0.1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
